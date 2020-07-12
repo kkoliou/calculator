@@ -7,9 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class Calculator extends Fragment {
 
@@ -84,63 +89,72 @@ public class Calculator extends Fragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "1");
+                String str = startsWithZero();
+                input.setText(str + "1");
             }
         });
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "2");
+                String str = startsWithZero();
+                input.setText(str + "2");
             }
         });
 
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "3");
+                String str = startsWithZero();
+                input.setText(str + "3");
             }
         });
 
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "4");
+                String str = startsWithZero();
+                input.setText(str + "4");
             }
         });
 
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "5");
+                String str = startsWithZero();
+                input.setText(str + "5");
             }
         });
 
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "6");
+                String str = startsWithZero();
+                input.setText(str + "6");
             }
         });
 
         btn7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "7");
+                String str = startsWithZero();
+                input.setText(str + "7");
             }
         });
 
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "8");
+                String str = startsWithZero();
+                input.setText(str + "8");
             }
         });
 
         btn9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().toString() + "9");
+                String str = startsWithZero();
+                input.setText(str + "9");
             }
         });
 
@@ -168,17 +182,19 @@ public class Calculator extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = input.getText().toString();
-                char finalChar = str.charAt(str.length()-1);
 
-                if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
-                    str = str.substring(0, str.length() - 1);
-                    input.setText(str);
-                }
+                if (str.length() > 0) {
+                    char finalChar = str.charAt(str.length() - 1);
 
-                if (input.getText().toString() != "" ) {
-                    double num = Double.parseDouble(str) / 100.0f;
-                    String temp = String.valueOf(num);
-                    input.setText(temp);
+                    if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
+                        str = str.substring(0, str.length() - 1);
+                    }
+
+                    if (str != "") {
+                        double num = Double.parseDouble(str) / 100.0f;
+                        String temp = String.valueOf(num);
+                        input.setText(temp);
+                    }
                 }
             }
         });
@@ -186,74 +202,71 @@ public class Calculator extends Fragment {
         btnDiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = input.getText().toString();
-                char finalChar = str.charAt(str.length()-1);
-
-                if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
-                    str = str.substring(0, str.length() - 1) + "÷";
-                    input.setText(str);
-                } else {
-                    input.setText(str + "÷");
-                }
+                operation("÷");
             }
         });
 
         btnMul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = input.getText().toString();
-                char finalChar = str.charAt(str.length()-1);
-
-                if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
-                    str = str.substring(0, str.length() - 1) + "×";
-                    input.setText(str);
-                } else {
-                    input.setText(str + "×");
-                }
+                operation("×");
             }
         });
 
         btnSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = input.getText().toString();
-                char finalChar = str.charAt(str.length()-1);
-
-                if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
-                    str = str.substring(0, str.length() - 1) + "−";
-                    input.setText(str);
-                } else {
-                    input.setText(str + "−");
-                }
+                operation("−");
             }
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = input.getText().toString();
-                char finalChar = str.charAt(str.length()-1);
-
-                if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
-                    str = str.substring(0, str.length() - 1) + "+";
-                    input.setText(str);
-                } else {
-                    input.setText(str + "+");
-                }
+                operation("+");
             }
         });
 
         btnResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText("");
+                String in = input.getText().toString();
+                if (in.length() != 0) {
+                    in = in.replace("÷", "/");
+                    in = in.replace("×", "*");
+                    in = in.replace("−", "-");
+
+                    Expression exp = new ExpressionBuilder(in).build();
+                    try {
+                        double result = exp.evaluate();
+                        String out = String.valueOf(result);
+                        if (result % 1 == 0) {
+                            out = String.valueOf((int) result);
+                        }
+                        input.setText(out);
+                    } catch (ArithmeticException e) {
+                        input.setText("");
+                        Toast.makeText(getActivity(), "Division by zero", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
 
         btnDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!input.getText().toString().contains(".")) {
+                String in = input.getText().toString();
+                boolean dotFound = false;
+                for (int i = in.length()-1; i >= 0; i--) {
+                    if (in.charAt(i) ==  '+' || in.charAt(i) == '×' || in.charAt(i) == '−' || in.charAt(i) == '÷') {
+                        break;
+                    }
+                    if (in.charAt(i) == '.') {
+                        dotFound = true;
+                    }
+                }
+
+                if (!dotFound) {
                     if (input.getText().toString() == "") {
                         input.setText(input.getText().toString() + "0.");
                     } else {
@@ -262,5 +275,31 @@ public class Calculator extends Fragment {
                 }
             }
         });
+    }
+
+    public String startsWithZero() {
+        String str = input.getText().toString();
+
+        if (str.length() == 1) {
+            if (str.charAt(0) == '0') {
+                str = "";
+            }
+        }
+        return str;
+    }
+
+    public void operation(String op) {
+        String str = input.getText().toString();
+
+        if (str.length() > 0) {
+            char finalChar = str.charAt(str.length() - 1);
+
+            if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
+                str = str.substring(0, str.length() - 1) + op;
+                input.setText(str);
+            } else {
+                input.setText(str + op);
+            }
+        }
     }
 }
