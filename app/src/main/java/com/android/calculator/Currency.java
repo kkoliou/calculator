@@ -1,19 +1,20 @@
 package com.android.calculator;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+public class Currency {
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+    private String name;
+    private double rate;
 
-public class Currency extends Fragment {
+    public Currency(String name, double rate) {
+        this.name = name;
+        this.rate = rate;
+    }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.currency_frag, container, false);
+    public String getName() {
+        return name;
+    }
+
+    public double getRate() {
+        return rate;
     }
 }

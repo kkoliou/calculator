@@ -1,7 +1,6 @@
 package com.android.calculator;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
-public class Calculator extends Fragment {
+public class CalculatorFrag extends Fragment {
 
     private TextView input;
     private Button btn0;

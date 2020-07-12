@@ -20,10 +20,10 @@ public class PageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                Calculator calc = new Calculator();
+                CalculatorFrag calc = new CalculatorFrag();
                 return calc;
             case 1:
-                Currency curr = new Currency();
+                CurrencyFrag curr = new CurrencyFrag();
                 return curr;
             default:
                 return null;
