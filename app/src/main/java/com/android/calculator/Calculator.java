@@ -78,7 +78,7 @@ public class Calculator extends Fragment {
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (input.getText().toString() != "0" && input.getText().toString().length() > 1) {
+                if (input.getText().toString() != "0" && input.getText().toString().length() >= 1) {
                     input.setText(input.getText().toString() + "0");
                 } else if (input.getText().toString().length() == 0) {
                     input.setText("0");
@@ -235,6 +235,10 @@ public class Calculator extends Fragment {
                     in = in.replace("÷", "/");
                     in = in.replace("×", "*");
                     in = in.replace("−", "-");
+
+                    if (!Character.isDigit(in.charAt(in.length()-1))) {
+                        in = in.substring(0, in.length()-1);
+                    }
 
                     Expression exp = new ExpressionBuilder(in).build();
                     try {
