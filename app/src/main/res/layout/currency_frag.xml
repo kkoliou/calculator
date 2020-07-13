@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/btnBracket"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -34,16 +32,24 @@
                     android:id="@+id/spFrom"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.65" />
+                    android:layout_weight="0.50"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="50dp"
+                    android:maxLength="10"/>
 
                 <TextView
                     android:id="@+id/fromTV"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.35"
-                    android:text="7"
-                    android:textSize="30dp" />
+                    android:layout_weight="1.50"
+                    android:gravity="center|end"
+                    android:hint="0"
+                    android:padding="10dp"
+                    android:textSize="50dp"
+                    android:maxLength="10"
+                    android:textColor="#FF676767"/>
 
             </LinearLayout>
 
@@ -58,22 +64,28 @@
                     android:id="@+id/spTo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.65" />
+                    android:layout_weight="0.50"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="50dp"
+                    android:maxLength="25"/>
 
                 <TextView
                     android:id="@+id/toTV"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.35"
-                    android:text="7"
-                    android:textSize="30dp" />
+                    android:layout_weight="1.50"
+                    android:gravity="center|end"
+                    android:hint="0"
+                    android:padding="10dp"
+                    android:textSize="50dp"
+                    android:maxLength="25"
+                    android:textColor="#FF676767"/>
 
             </LinearLayout>
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 
@@ -99,7 +111,7 @@
                 android:weightSum="3">
 
                 <Button
-                    android:id="@+id/btn7"
+                    android:id="@+id/btn7Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -108,7 +120,7 @@
                     android:textSize="30dp" />
 
                 <Button
-                    android:id="@+id/btn8"
+                    android:id="@+id/btn8Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -117,7 +129,7 @@
                     android:textSize="30dp" />
 
                 <Button
-                    android:id="@+id/btn9"
+                    android:id="@+id/btn9Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -135,7 +147,7 @@
                 android:weightSum="3">
 
                 <Button
-                    android:id="@+id/btn4"
+                    android:id="@+id/btn4Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -144,7 +156,7 @@
                     android:textSize="30dp" />
 
                 <Button
-                    android:id="@+id/btn5"
+                    android:id="@+id/btn5Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -153,7 +165,7 @@
                     android:textSize="30dp" />
 
                 <Button
-                    android:id="@+id/btn6"
+                    android:id="@+id/btn6Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -172,7 +184,7 @@
             android:weightSum="1">
 
             <Button
-                android:id="@+id/btnC"
+                android:id="@+id/btnCCur"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -206,7 +218,7 @@
                 android:weightSum="3">
 
                 <Button
-                    android:id="@+id/btn1"
+                    android:id="@+id/btn1Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -215,7 +227,7 @@
                     android:textSize="30dp" />
 
                 <Button
-                    android:id="@+id/btn2"
+                    android:id="@+id/btn2Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -224,7 +236,7 @@
                     android:textSize="30dp" />
 
                 <Button
-                    android:id="@+id/btn3"
+                    android:id="@+id/btn3Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -250,7 +262,7 @@
                     android:textSize="30dp" />
 
                 <Button
-                    android:id="@+id/btn0"
+                    android:id="@+id/btn0Cur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -259,7 +271,7 @@
                     android:textSize="30dp" />
 
                 <Button
-                    android:id="@+id/btnDot"
+                    android:id="@+id/btnDotCur"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -278,7 +290,7 @@
             android:weightSum="1">
 
             <Button
-                android:id="@+id/btnRes"
+                android:id="@+id/btnDelCur"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

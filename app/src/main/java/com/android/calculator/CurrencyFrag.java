@@ -6,7 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,12 +25,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class CurrencyFrag extends Fragment {
 
+    private TextView input;
+    private Button btn0;
+    private Button btn1;
+    private Button btn2;
+    private Button btn3;
+    private Button btn4;
+    private Button btn5;
+    private Button btn6;
+    private Button btn7;
+    private Button btn8;
+    private Button btn9;
+    private Button btnClear;
+    private Button btnDel;
     String[] currencies;
     HashMap<String, Double> ratesMap;
 
@@ -38,6 +53,9 @@ public class CurrencyFrag extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        initConvButtons();
+        btnListeners();
 
         currencies = new String[]{"AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AZN", "BAM", "BBD", "BDT", "BGN", "BHD", "BIF", "BMD",
                 "BND", "BOB", "BRL", "BSD", "BTC", "BTN", "BWP", "BYN", "BYR", "BZD", "CAD", "CDF", "CHF", "CLF", "CLP", "CNY", "COP", "CRC",
@@ -54,8 +72,7 @@ public class CurrencyFrag extends Fragment {
 
         new JsonTask().execute("http://data.fixer.io/api/latest?access_key=cf2cec699bac6a877687217edc984666");
 
-//        ArrayList<String> currenciesList = (ArrayList<String>) Arrays.asList(currencies);
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, currenciesList);
+        spinners();
     }
 
     private class JsonTask extends AsyncTask<String, String, String> {
@@ -110,5 +127,174 @@ public class CurrencyFrag extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {}
+    }
+
+    public void spinners() {
+        final Spinner fromSpin = (Spinner) getView().findViewById(R.id.spFrom);
+        ArrayAdapter<String> adapterFrom = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, currencies);
+        adapterFrom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fromSpin.setAdapter(adapterFrom);
+
+        Spinner toSpin = (Spinner) getView().findViewById(R.id.spTo);
+        ArrayAdapter<String> adapterTo = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, currencies);
+        adapterTo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        toSpin.setAdapter(adapterTo);
+
+        fromSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String baseCur = fromSpin.getSelectedItem().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        toSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void initConvButtons() {
+        input = getView().findViewById(R.id.fromTV);
+        btn0 = getView().findViewById(R.id.btn0Cur);
+        btn1 = getView().findViewById(R.id.btn1Cur);
+        btn2 = getView().findViewById(R.id.btn2Cur);
+        btn3 = getView().findViewById(R.id.btn3Cur);
+        btn4 = getView().findViewById(R.id.btn4Cur);
+        btn5 = getView().findViewById(R.id.btn5Cur);
+        btn6 = getView().findViewById(R.id.btn6Cur);
+        btn7 = getView().findViewById(R.id.btn7Cur);
+        btn8 = getView().findViewById(R.id.btn8Cur);
+        btn9 = getView().findViewById(R.id.btn9Cur);
+        btnClear = getView().findViewById(R.id.btnCCur);
+        btnDel = getView().findViewById(R.id.btnDelCur);
+    }
+
+    public void btnListeners() {
+        btn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (input.getText().toString() != "0" && input.getText().toString().length() >= 1) {
+                    input.setText(input.getText().toString() + "0");
+                } else if (input.getText().toString().length() == 0) {
+                    input.setText("0");
+                }
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "1");
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "2");
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "3");
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "4");
+            }
+        });
+
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "5");
+            }
+        });
+
+        btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "6");
+            }
+        });
+
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "7");
+            }
+        });
+
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "8");
+            }
+        });
+
+        btn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = startsWithZero();
+                input.setText(str + "9");
+            }
+        });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input.setText("");
+            }
+        });
+
+        btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = input.getText().toString();
+                if (str.length() > 1) {
+                    str = str.substring(0, str.length() - 1);
+                    input.setText(str);
+                } else {
+                    input.setText("");
+                }
+            }
+        });
+    }
+
+    public String startsWithZero() {
+        String str = input.getText().toString();
+
+        if (str.length() == 1) {
+            if (str.charAt(0) == '0') {
+                str = "";
+            }
+        }
+        return str;
     }
 }
