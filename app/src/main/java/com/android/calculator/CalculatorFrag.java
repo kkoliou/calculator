@@ -271,7 +271,7 @@ public class CalculatorFrag extends Fragment {
 
                 if (!dotFound) {
                     if (input.getText().toString() == "") {
-                        input.setText(input.getText().toString() + "0.");
+                        input.setText("0.");
                     } else {
                         input.setText(input.getText().toString() + ".");
                     }

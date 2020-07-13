@@ -46,10 +46,11 @@
                     android:layout_weight="1.50"
                     android:gravity="center|end"
                     android:hint="0"
-                    android:padding="10dp"
-                    android:textSize="50dp"
                     android:maxLength="10"
-                    android:textColor="#FF676767"/>
+                    android:padding="10dp"
+                    android:text="0"
+                    android:textColor="#FF676767"
+                    android:textSize="50dp" />
 
             </LinearLayout>
 
@@ -78,10 +79,11 @@
                     android:layout_weight="1.50"
                     android:gravity="center|end"
                     android:hint="0"
-                    android:padding="10dp"
-                    android:textSize="50dp"
                     android:maxLength="25"
-                    android:textColor="#FF676767"/>
+                    android:padding="10dp"
+                    android:text="0"
+                    android:textColor="#FF676767"
+                    android:textSize="50dp" />
 
             </LinearLayout>
 
@@ -258,6 +260,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:text=""
                     android:textSize="30dp" />
 

@@ -2,6 +2,8 @@ package com.android.calculator;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,7 @@ import java.util.HashMap;
 public class CurrencyFrag extends Fragment {
 
     private TextView input;
+    private TextView output;
     private Button btn0;
     private Button btn1;
     private Button btn2;
@@ -42,8 +45,11 @@ public class CurrencyFrag extends Fragment {
     private Button btn9;
     private Button btnClear;
     private Button btnDel;
+    private Button btnDot;
     String[] currencies;
     HashMap<String, Double> ratesMap;
+    private String baseCur;
+    private String convCur;
 
     @Nullable
     @Override
@@ -73,6 +79,31 @@ public class CurrencyFrag extends Fragment {
         new JsonTask().execute("http://data.fixer.io/api/latest?access_key=cf2cec699bac6a877687217edc984666");
 
         spinners();
+
+        input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count != 0) {
+                    double amountForConv = Double.parseDouble(input.getText().toString());
+                    double rate2 = ratesMap.get(convCur);
+                    if (baseCur != "EUR") {
+                        double rate1 = ratesMap.get(baseCur);
+                        double amountToEur = amountForConv * 1/rate1;
+                        double converted = amountToEur * rate2;
+                        output.setText(String.valueOf(converted));
+                    } else {
+                        double converted = amountForConv*rate2;
+                        output.setText(String.valueOf(converted));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
     private class JsonTask extends AsyncTask<String, String, String> {
@@ -130,12 +161,13 @@ public class CurrencyFrag extends Fragment {
     }
 
     public void spinners() {
-        final Spinner fromSpin = (Spinner) getView().findViewById(R.id.spFrom);
+
+        final Spinner fromSpin = getView().findViewById(R.id.spFrom);
         ArrayAdapter<String> adapterFrom = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, currencies);
         adapterFrom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fromSpin.setAdapter(adapterFrom);
 
-        Spinner toSpin = (Spinner) getView().findViewById(R.id.spTo);
+        final Spinner toSpin = getView().findViewById(R.id.spTo);
         ArrayAdapter<String> adapterTo = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, currencies);
         adapterTo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         toSpin.setAdapter(adapterTo);
@@ -143,31 +175,27 @@ public class CurrencyFrag extends Fragment {
         fromSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String baseCur = fromSpin.getSelectedItem().toString();
-
+                baseCur = fromSpin.getSelectedItem().toString();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         toSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                convCur = toSpin.getSelectedItem().toString();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
     public void initConvButtons() {
         input = getView().findViewById(R.id.fromTV);
+        output = getView().findViewById(R.id.toTV);
         btn0 = getView().findViewById(R.id.btn0Cur);
         btn1 = getView().findViewById(R.id.btn1Cur);
         btn2 = getView().findViewById(R.id.btn2Cur);
@@ -180,6 +208,7 @@ public class CurrencyFrag extends Fragment {
         btn9 = getView().findViewById(R.id.btn9Cur);
         btnClear = getView().findViewById(R.id.btnCCur);
         btnDel = getView().findViewById(R.id.btnDelCur);
+        btnDot = getView().findViewById(R.id.btnDotCur);
     }
 
     public void btnListeners() {
@@ -269,7 +298,8 @@ public class CurrencyFrag extends Fragment {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText("");
+                input.setText("0");
+                output.setText("0");
             }
         });
 
@@ -281,7 +311,17 @@ public class CurrencyFrag extends Fragment {
                     str = str.substring(0, str.length() - 1);
                     input.setText(str);
                 } else {
-                    input.setText("");
+                    input.setText("0");
+                    output.setText("0");
+                }
+            }
+        });
+
+        btnDot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!input.getText().toString().contains(".")) {
+                    input.setText(input.getText().toString() + ".");
                 }
             }
         });
