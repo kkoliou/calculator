@@ -2,6 +2,7 @@ package com.android.calculator;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -87,16 +88,20 @@ public class CurrencyFrag extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count != 0) {
-                    double amountForConv = Double.parseDouble(input.getText().toString());
-                    double rate2 = ratesMap.get(convCur);
-                    if (baseCur != "EUR") {
-                        double rate1 = ratesMap.get(baseCur);
-                        double amountToEur = amountForConv * 1/rate1;
-                        double converted = amountToEur * rate2;
-                        output.setText(String.valueOf(converted));
-                    } else {
-                        double converted = amountForConv*rate2;
-                        output.setText(String.valueOf(converted));
+                    try {
+                        double amountForConv = Double.parseDouble(input.getText().toString());
+                        double rate2 = ratesMap.get(convCur);
+                        if (baseCur != "EUR") {
+                            double rate1 = ratesMap.get(baseCur);
+                            double amountToEur = amountForConv * 1 / rate1;
+                            double converted = amountToEur * rate2;
+                            output.setText(String.valueOf(converted));
+                        } else {
+                            double converted = amountForConv * rate2;
+                            output.setText(String.valueOf(converted));
+                        }
+                    } catch (NullPointerException e) {
+                        Log.e("hashmap","nullpointerexception");
                     }
                 }
             }
