@@ -181,6 +181,8 @@ public class CurrencyFrag extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 baseCur = fromSpin.getSelectedItem().toString();
+                input.setText("0");
+                output.setText("0");
             }
 
             @Override
@@ -191,6 +193,8 @@ public class CurrencyFrag extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 convCur = toSpin.getSelectedItem().toString();
+                input.setText("0");
+                output.setText("0");
             }
 
             @Override

@@ -51,7 +51,7 @@
                     android:padding="10dp"
                     android:text="0"
                     android:textColor="#FF676767"
-                    android:textSize="50dp" />
+                    android:textSize="40dp" />
 
             </LinearLayout>
 
@@ -85,7 +85,7 @@
                     android:padding="10dp"
                     android:text="0"
                     android:textColor="#FF676767"
-                    android:textSize="50dp" />
+                    android:textSize="40dp" />
 
             </LinearLayout>
 

@@ -89,6 +89,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "1");
             }
         });
@@ -97,6 +98,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "2");
             }
         });
@@ -105,6 +107,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "3");
             }
         });
@@ -113,6 +116,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "4");
             }
         });
@@ -121,6 +125,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "5");
             }
         });
@@ -129,6 +134,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "6");
             }
         });
@@ -137,6 +143,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "7");
             }
         });
@@ -145,6 +152,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "8");
             }
         });
@@ -153,6 +161,7 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = startsWithZero();
+                str = hasZeroAfterOp(str);
                 input.setText(str + "9");
             }
         });
@@ -181,6 +190,13 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = input.getText().toString();
+
+                if (str.length() == 1) {     //if input == "+" etc
+                    if (!Character.isDigit(str.charAt(0))) {
+                        input.setText("");
+                        return;
+                    }
+                }
 
                 if (str.length() > 0) {
                     char finalChar = str.charAt(str.length() - 1);
@@ -234,6 +250,13 @@ public class CalculatorFrag extends Fragment {
                     in = in.replace("÷", "/");
                     in = in.replace("×", "*");
                     in = in.replace("−", "-");
+
+                    if (in.length() == 1) {     //if input == "+" etc
+                        if (!Character.isDigit(in.charAt(0))) {
+                            input.setText("");
+                            return;
+                        }
+                    }
 
                     if (!Character.isDigit(in.charAt(in.length()-1))) {
                         in = in.substring(0, in.length()-1);
@@ -291,10 +314,26 @@ public class CalculatorFrag extends Fragment {
         return str;
     }
 
+    public String hasZeroAfterOp(String in) {   //avoid input like 9/003
+
+        if (in.length() > 1) {
+            char op = in.charAt(in.length() - 2);
+            if (op == '+' || op == '×' || op == '−' || op == '÷' && in.charAt(in.length()-1) == '0') {
+                in = in.substring(0, in.length() - 1);
+            }
+        }
+        return in;
+    }
+
     public void operation(String op) {
         String str = input.getText().toString();
 
-        if (str.length() > 0) {
+        if (str == "" && op == "−") {
+            input.setText("−");
+            return;
+        }
+
+        if (str.length() > 1) {
             char finalChar = str.charAt(str.length() - 1);
 
             if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
