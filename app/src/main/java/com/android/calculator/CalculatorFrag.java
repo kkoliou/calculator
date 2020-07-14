@@ -198,6 +198,10 @@ public class CalculatorFrag extends Fragment {
                     }
                 }
 
+                if (str.contains("+") || str.contains("×") || str.contains("−") || str.contains("÷")) {
+                    return;
+                }
+
                 if (str.length() > 0) {
                     char finalChar = str.charAt(str.length() - 1);
 
@@ -282,6 +286,11 @@ public class CalculatorFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 String in = input.getText().toString();
+
+                if (!Character.isDigit(in.charAt(in.length()-1))) {     //if previous char is operator, then dot won't be added
+                    return;
+                }
+
                 boolean dotFound = false;
                 for (int i = in.length()-1; i >= 0; i--) {
                     if (in.charAt(i) ==  '+' || in.charAt(i) == '×' || in.charAt(i) == '−' || in.charAt(i) == '÷') {
@@ -303,7 +312,7 @@ public class CalculatorFrag extends Fragment {
         });
     }
 
-    public String startsWithZero() {
+    public String startsWithZero() {        //if input is 0, pressing 1, 0 will be replaced by 1
         String str = input.getText().toString();
 
         if (str.length() == 1) {
@@ -318,8 +327,10 @@ public class CalculatorFrag extends Fragment {
 
         if (in.length() > 1) {
             char op = in.charAt(in.length() - 2);
-            if (op == '+' || op == '×' || op == '−' || op == '÷' && in.charAt(in.length()-1) == '0') {
-                in = in.substring(0, in.length() - 1);
+            if (op == '+' || op == '×' || op == '−' || op == '÷') {
+                if (in.charAt(in.length()-1) == '0') {
+                    in = in.substring(0, in.length() - 1);
+                }
             }
         }
         return in;
@@ -333,7 +344,7 @@ public class CalculatorFrag extends Fragment {
             return;
         }
 
-        if (str.length() > 1) {
+        if (str.length() > 0) {
             char finalChar = str.charAt(str.length() - 1);
 
             if (finalChar == '+' || finalChar == '×' || finalChar == '−' || finalChar == '÷') {
