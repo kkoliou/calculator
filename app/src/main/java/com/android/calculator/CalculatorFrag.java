@@ -1,6 +1,7 @@
 package com.android.calculator;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -287,8 +288,10 @@ public class CalculatorFrag extends Fragment {
             public void onClick(View v) {
                 String in = input.getText().toString();
 
-                if (!Character.isDigit(in.charAt(in.length()-1))) {     //if previous char is operator, then dot won't be added
-                    return;
+                if (in != "") {     //if in =! "."
+                    if (!Character.isDigit(in.charAt(in.length() - 1))) {     //if previous char is operator, then dot won't be added
+                        return;
+                    }
                 }
 
                 boolean dotFound = false;
