@@ -1,5 +1,8 @@
 package com.android.calculator;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -14,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,6 +64,10 @@ public class CurrencyFrag extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        if (!isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "Enable internet connection to get the last currency rates", Toast.LENGTH_LONG).show();
+        }
 
         initConvButtons();
         btnListeners();
@@ -345,5 +353,12 @@ public class CurrencyFrag extends Fragment {
             }
         }
         return str;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
