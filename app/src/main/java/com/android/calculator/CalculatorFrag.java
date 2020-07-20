@@ -288,7 +288,7 @@ public class CalculatorFrag extends Fragment {
             public void onClick(View v) {
                 String in = input.getText().toString();
 
-                if (in != "") {     //if in =! "."
+                if (in != "") {     //if in != "."
                     if (!Character.isDigit(in.charAt(in.length() - 1))) {     //if previous char is operator, then dot won't be added
                         return;
                     }
