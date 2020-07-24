@@ -78,7 +78,7 @@ public class CalculatorFrag extends Fragment {
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (input.getText().toString() != "0" && input.getText().toString().length() >= 1) {
+                if (!input.getText().toString().equals("0") && input.getText().toString().length() >= 1) {
                     input.setText(input.getText().toString() + "0");
                 } else if (input.getText().toString().length() == 0) {
                     input.setText("0");
@@ -210,7 +210,7 @@ public class CalculatorFrag extends Fragment {
                         str = str.substring(0, str.length() - 1);
                     }
 
-                    if (str != "") {
+                    if (!str.equals("")) {
                         double num = Double.parseDouble(str) / 100.0f;
                         String temp = String.valueOf(num);
                         input.setText(temp);
@@ -288,7 +288,7 @@ public class CalculatorFrag extends Fragment {
             public void onClick(View v) {
                 String in = input.getText().toString();
 
-                if (in != "") {     //if in != "."
+                if (!in.equals("")) {     //if in != "."
                     if (!Character.isDigit(in.charAt(in.length() - 1))) {     //if previous char is operator, then dot won't be added
                         return;
                     }
@@ -301,11 +301,12 @@ public class CalculatorFrag extends Fragment {
                     }
                     if (in.charAt(i) == '.') {
                         dotFound = true;
+                        break;
                     }
                 }
 
                 if (!dotFound) {
-                    if (input.getText().toString() == "") {
+                    if (input.getText().toString().equals("")) {
                         input.setText("0.");
                     } else {
                         input.setText(input.getText().toString() + ".");
@@ -342,7 +343,7 @@ public class CalculatorFrag extends Fragment {
     public void operation(String op) {
         String str = input.getText().toString();
 
-        if (str == "" && op == "−") {
+        if (str.equals("") && op.equals("−")) {
             input.setText("−");
             return;
         }
